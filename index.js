@@ -1,25 +1,29 @@
+
 const express = require('express');
 const app = express();
 
-// Middleware to parse JSON bodies
+// Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// Step 3: Create a POST endpoint
-app.post('/sort-word', (req, res) => {
-    // Step 4: Receive JSON data with the "data" field
-    const inputString = req.body.data;
+// Define the POST endpoint at /sort-string
+app.post('/sort', (req, res) => {
+    // Extract the 'data' field from the request body
+    const { data } = req.body;
 
-    // Step 5: Convert the string into an array of characters
-    const charArray = inputString.split('');
+    // Check if 'data' is a string
+    if (typeof data !== 'string') {
+        // If not, return a 400 error with an error message
+        return res.status(400).json({ error: 'Invalid input.' });
+    }
 
-    // Step 6: Sort the array alphabetically
-    const sortedArray = charArray.sort();
+    // Convert the string to an array of characters, sort them, and join them back into a string
+    const sortedWord = data.split('').sort().join('');
 
-    // Step 7: Return the sorted array in JSON format
-    res.json({ word: sortedArray });
+    // Return the sorted characters as a JSON response
+    res.json({ word: sortedWord });
 });
 
-// Start the server on port 3000
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+// Start the server and listen on port 3000
+app.listen(4000, () => {
+    console.log('Server is running on port 4000');
 });
