@@ -5,8 +5,8 @@ const app = express();
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// Define the POST endpoint at /sort
-app.post('/sort', (req, res) => {
+// Define the POST endpoint at /sorted-string
+app.post('/sorted-string', (req, res) => {
     // Extract the 'data' field from the request body
     const { data } = req.body;
 
